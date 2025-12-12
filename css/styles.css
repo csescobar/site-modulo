@@ -9,11 +9,38 @@
   --bg-color: #ffffff;
   --bg-alt: #f8fafc;
   --white: #ffffff;
+  --border-color: #e2e8f0;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   --radius: 8px;
   --font-main: "Inter", sans-serif;
+}
+
+/* Dark Mode Theme */
+html[data-theme="dark"],
+[data-theme="dark"] {
+  --primary-color: #3b82f6;
+  --primary-dark: #2563eb;
+  --accent-color: #fbbf24;
+  --accent-hover: #f59e0b;
+  --text-color: #f1f5f9;
+  --text-light: #94a3b8;
+  --bg-color: #0f172a;
+  --bg-alt: #1e293b;
+  --white: #1e293b;
+  --border-color: #334155;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode adjustments for images and logos */
+html[data-theme="dark"] .platform-logo,
+html[data-theme="dark"] .card-icon img,
+[data-theme="dark"] .platform-logo,
+[data-theme="dark"] .card-icon img {
+  filter: brightness(1.1);
 }
 
 * {
@@ -27,6 +54,7 @@ body {
   color: var(--text-color);
   background-color: var(--bg-color);
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -105,6 +133,7 @@ img {
   top: 0;
   z-index: 1000;
   padding: 15px 0;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .header-container {
@@ -115,6 +144,19 @@ img {
 
 .logo img {
   height: 40px; /* Adjust based on actual logo size */
+}
+
+/* Alternar logos baseado no tema */
+.logo .logo-dark {
+  display: none;
+}
+
+html[data-theme="dark"] .logo .logo-light {
+  display: none;
+}
+
+html[data-theme="dark"] .logo .logo-dark {
+  display: block;
 }
 
 .nav-list {
@@ -135,6 +177,45 @@ img {
 
 .nav-list a:not(.btn):hover {
   color: var(--primary-color);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: none;
+  border: 2px solid var(--text-light);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--text-color);
+  margin-right: 15px;
+}
+
+.theme-toggle:hover {
+  border-color: var(--primary-color);
+  transform: rotate(20deg);
+}
+
+.theme-toggle .sun-icon {
+  display: block;
+}
+
+.theme-toggle .moon-icon {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-toggle .sun-icon,
+[data-theme="dark"] .theme-toggle .sun-icon {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-toggle .moon-icon,
+[data-theme="dark"] .theme-toggle .moon-icon {
+  display: block;
 }
 
 .mobile-menu-btn {
@@ -225,6 +306,7 @@ img {
 .solutions {
   padding: 80px 0;
   background-color: var(--bg-alt);
+  transition: background-color 0.3s ease;
 }
 
 .section-header {
@@ -236,6 +318,11 @@ img {
   font-size: 2.5rem;
   color: var(--primary-color);
   margin-bottom: 15px;
+}
+
+/* Títulos mais claros em fundos escuros no dark mode */
+html[data-theme="dark"] .section-header h2 {
+  color: #e0f2fe;
 }
 
 .section-header p {
@@ -255,13 +342,14 @@ img {
 
 .solutions-link-card {
   background: var(--white);
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 18px;
   text-decoration: none;
   color: var(--text-color);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease,
+    background-color 0.3s ease;
 }
 
 .solutions-link-card:hover {
@@ -317,6 +405,7 @@ img {
   width: min(520px, 92vw);
   box-shadow: var(--shadow-lg);
   z-index: 1;
+  transition: background-color 0.3s ease;
 }
 
 .solution-modal__close {
@@ -386,8 +475,9 @@ img {
   align-items: center;
   gap: 15px;
   margin-bottom: 30px;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 2px solid var(--border-color);
   padding-bottom: 10px;
+  transition: border-color 0.3s ease;
 }
 
 .pillar-icon {
@@ -418,7 +508,8 @@ img {
   padding: 30px;
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
   border-top: 4px solid transparent;
 }
 
@@ -464,6 +555,10 @@ img {
   margin-bottom: 20px;
 }
 
+html[data-theme="dark"] .cta-section h2 {
+  color: #f1f5f9;
+}
+
 .cta-section p {
   font-size: 1.2rem;
   margin-bottom: 40px;
@@ -474,6 +569,7 @@ img {
 .about-section {
   padding: 80px 0;
   background-color: var(--white);
+  transition: background-color 0.3s ease;
 }
 
 .mission-vision-grid {
@@ -491,8 +587,9 @@ img {
   padding: 30px;
   border-radius: var(--radius);
   text-align: center;
-  border: 1px solid #e2e8f0;
-  transition: transform 0.3s ease;
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease, background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .mv-card:hover {
@@ -541,6 +638,7 @@ img {
   box-shadow: var(--shadow-sm);
   border-top: 3px solid var(--accent-color);
   height: 100%;
+  transition: background-color 0.3s ease;
 }
 
 .value-card h4 {
@@ -558,6 +656,7 @@ img {
 .what-we-do-section {
   padding: 80px 0;
   background-color: var(--bg-alt);
+  transition: background-color 0.3s ease;
 }
 
 .wwd-block {
@@ -591,7 +690,7 @@ img {
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
   border-left: 4px solid var(--primary-color);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .platform-card:hover {
@@ -654,7 +753,7 @@ img {
 }
 
 .footer-col h4 {
-  color: var(--white);
+  color: #f1f5f9;
   margin-bottom: 20px;
   font-size: 1.1rem;
 }
@@ -761,6 +860,17 @@ img {
     position: relative;
   }
 
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
+  }
+
+  .theme-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
+
   .mobile-menu-btn {
     display: flex;
   }
@@ -776,6 +886,7 @@ img {
     padding: 20px;
     box-shadow: var(--shadow-md);
     text-align: center;
+    transition: background-color 0.3s ease;
   }
 
   .nav-list.active {

@@ -1,4 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Theme Toggle (Dark/Light Mode)
+  const themeToggle = document.querySelector(".theme-toggle")
+  const htmlElement = document.documentElement
+
+  // Check for saved theme preference or default to light mode
+  const currentTheme = localStorage.getItem("theme") || "light"
+  htmlElement.setAttribute("data-theme", currentTheme)
+  console.log("Theme initialized:", currentTheme)
+
+  if (themeToggle) {
+    console.log("Theme toggle button found!")
+    themeToggle.addEventListener("click", () => {
+      const currentTheme = htmlElement.getAttribute("data-theme")
+      const newTheme = currentTheme === "dark" ? "light" : "dark"
+
+      htmlElement.setAttribute("data-theme", newTheme)
+      localStorage.setItem("theme", newTheme)
+      console.log("Theme changed to:", newTheme)
+
+      // Track theme change in analytics if available
+      if (typeof gtag !== "undefined") {
+        gtag("event", "theme_toggle", {
+          event_category: "User Preference",
+          event_label: newTheme,
+        })
+      }
+    })
+  } else {
+    console.error("Theme toggle button NOT found!")
+  }
+
   // Mobile Menu Toggle
   const mobileBtn = document.querySelector(".mobile-menu-btn")
   const navList = document.querySelector(".nav-list")
