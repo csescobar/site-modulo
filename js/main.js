@@ -98,4 +98,76 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeModal()
   })
+
+  // Performance Optimization: Lazy Loading Fallback
+  // For browsers that don't support native lazy loading
+  if ("loading" in HTMLImageElement.prototype === false) {
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]')
+
+    if ("IntersectionObserver" in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const img = entry.target
+            if (img.dataset.src) {
+              img.src = img.dataset.src
+            }
+            img.classList.add("loaded")
+            observer.unobserve(img)
+          }
+        })
+      })
+
+      lazyImages.forEach((img) => imageObserver.observe(img))
+    } else {
+      // Fallback for older browsers without IntersectionObserver
+      lazyImages.forEach((img) => {
+        if (img.dataset.src) {
+          img.src = img.dataset.src
+        }
+      })
+    }
+  }
+
+  // Performance: Preload visible images for faster LCP
+  const heroImage = document.querySelector(".hero-bg img")
+  if (heroImage && heroImage.complete) {
+    heroImage.classList.add("loaded")
+  } else if (heroImage) {
+    heroImage.addEventListener("load", () => {
+      heroImage.classList.add("loaded")
+    })
+  }
+
+  // Analytics: Track CTA clicks
+  document.querySelectorAll(".btn, .cta-button").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      // Send event to Google Analytics if available
+      if (typeof gtag !== "undefined") {
+        const buttonText = e.currentTarget.textContent.trim()
+        const buttonHref = e.currentTarget.getAttribute("href") || "no-href"
+        gtag("event", "click", {
+          event_category: "CTA",
+          event_label: buttonText,
+          value: buttonHref,
+        })
+      }
+    })
+  })
+
+  // Analytics: Track solution card interactions
+  document.querySelectorAll("#solucoes .cards-grid .card").forEach((card) => {
+    card.addEventListener("click", () => {
+      if (typeof gtag !== "undefined") {
+        const title =
+          card.getAttribute("data-modal-title") ||
+          card.querySelector("h4")?.textContent ||
+          ""
+        gtag("event", "view_item", {
+          event_category: "Solutions",
+          event_label: title,
+        })
+      }
+    })
+  })
 })

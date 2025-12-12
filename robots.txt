@@ -1,0 +1,10 @@
+# robots.txt para Modulo - Gestão de Riscos e Compliance
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://csescobar.github.io/site-modulo/sitemap.xml
+
+# Evitar indexação de recursos desnecessários
+Disallow: /node_modules/
+Disallow: /*.json$
