@@ -113,11 +113,14 @@ img {
   border: 2px solid var(--white);
   color: var(--white);
   background: transparent;
+  transition: all 0.3s ease;
 }
 
 .btn-outline:hover {
-  background-color: var(--white);
-  color: var(--primary-color);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  transform: translateY(-2px);
 }
 
 .btn-large {
@@ -285,6 +288,7 @@ html[data-theme="dark"] .theme-toggle .moon-icon,
   font-weight: 700;
   margin-bottom: 20px;
   line-height: 1.2;
+  color: #ffffff;
 }
 
 .hero-content .highlight {
@@ -295,6 +299,7 @@ html[data-theme="dark"] .theme-toggle .moon-icon,
   font-size: 1.25rem;
   margin-bottom: 40px;
   opacity: 0.9;
+  color: #ffffff;
 }
 
 .hero-actions {
